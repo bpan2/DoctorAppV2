@@ -6,5 +6,3 @@ data class MedicalReport (
     val examination_date: String,
     val examination_result: String
 )
-
-//examination_type: CT-Scan, X-ray, MRI

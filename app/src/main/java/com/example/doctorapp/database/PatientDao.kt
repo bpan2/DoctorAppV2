@@ -9,6 +9,9 @@ interface PatientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPatient(patient: PatientEntity)
 
+    @Update
+    fun updatePatient(patient: PatientEntity)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(patients: List<PatientEntity>)
 
@@ -22,7 +25,7 @@ interface PatientDao {
     fun deletePatients(selectedPatients: List<PatientEntity>): Int
 
     @Query("DELETE FROM patients WHERE id = :id")
-    fun deletePatientById(id: Int): PatientEntity?
+    fun deletePatientById(id: Int): Int
 
     @Delete
     fun deletePatient(patient: PatientEntity)

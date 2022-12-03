@@ -21,7 +21,7 @@ data class PatientEntity(
     @Embedded val patient_medicalrecord: PatientMedicalRecord?
 )
 {
-    constructor() : this(
+   /* constructor() : this(
         NEW_PATIENT_ID,
         "John",
         "zz9876543210",
@@ -29,9 +29,8 @@ data class PatientEntity(
         "male",
         "416-777-88888",
         "john@gmail.com",
-        "12345 Yonge Street, Toronto, ON",
-        null
-    )
+        "12345 Yonge Street, Toronto, ON"
+    )*/
 
     /*
     constructor(
@@ -82,8 +81,10 @@ data class PatientMedicalRecord(
     val concussion: Boolean?,
     val muscle_cramps: Boolean?,
     val orthotics: Boolean?,
-    val medical_reports: List<String>?
+    //val medical_reports: MedicalReport?
 )
+
+
 
 //https://developer.android.com/training/data-storage/room/relationships#nested-objects
 /**
