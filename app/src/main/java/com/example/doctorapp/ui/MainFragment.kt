@@ -3,15 +3,14 @@ package com.example.doctorapp.ui
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.doctorapp.R
 import com.example.doctorapp.util.PatientsListAdapter
 import com.example.doctorapp.TAG
 import com.example.doctorapp.databinding.FragmentMainBinding
@@ -31,6 +30,9 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
         //disable the display of up-button on Home Screen's Action Bar
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        //enable Options Menu in fragment
+        setHasOptionsMenu(true)
+
         binding = FragmentMainBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -42,7 +44,7 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
             addItemDecoration(divider)
         }
 
-        viewModel.patientsList.observe(viewLifecycleOwner, Observer {
+        viewModel.patientsList?.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, it.toString())
             adapter = PatientsListAdapter(it, this@MainFragment)
             binding.recyclerView.adapter = adapter
@@ -50,6 +52,24 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
         })
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sample_data -> addSampleData()
+            //R.id.action_delete -> deleteSelectedNotes()
+            //R.id.action_delete_all -> deleteAllNotes()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun addSampleData(): Boolean {
+        return true
     }
 
     override fun onItemClick(patientId: Int) {
