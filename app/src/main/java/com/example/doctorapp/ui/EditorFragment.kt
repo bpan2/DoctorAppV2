@@ -36,7 +36,13 @@ class EditorFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding = FragmentEditorBinding.inflate(inflater, container, false)
-        binding.OHIPIdOutlinedTextField.editText?.setText("You selected Patient ID: ${args.patientId}")
+        //binding.nameOutlinedTextField.editText?.setText(args.patientName)
+        binding.OHIPIdOutlinedTextField.editText?.setText(args.patientId.toString())
+        //binding.dobOutlinedTextField.editText?.setText(args.patientDOB)
+        //binding.genderOutlinedTextField.editText?.setText(args.patientGender)
+        //binding.phoneOutlinedTextField.editText?.setText(args.patientPhone)
+        //binding.addressOutlinedTextField.editText?.setText(args.patientAddress)
+        //binding.emailOutlinedTextField.editText?.setText(args.patientEmail)
 
         //enalbe the device's back-button or back gesture to navigate from Editor screen back to Home Screen
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -47,7 +53,6 @@ class EditorFragment : Fragment() {
                 }
             }
         )
-
         return binding.root
     }
 

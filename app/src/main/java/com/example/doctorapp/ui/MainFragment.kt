@@ -69,6 +69,7 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
     }
 
     private fun addSampleData(): Boolean {
+        viewModel.addSampleData()
         return true
     }
 

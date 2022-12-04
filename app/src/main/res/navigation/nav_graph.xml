@@ -23,5 +23,33 @@
             android:name="patientId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="patientName"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientOHIP"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientDOB"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientGender"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientPhone"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientAddress"
+            app:argType="string"
+            android:defaultValue='' />
+        <argument
+            android:name="patientEmail"
+            app:argType="string"
+            android:defaultValue='' />
     </fragment>
 </navigation>

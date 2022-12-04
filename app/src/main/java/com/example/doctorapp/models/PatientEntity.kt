@@ -6,6 +6,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.doctorapp.NEW_PATIENT_ID
+import java.util.*
 
 
 @Entity(tableName = "patients")
@@ -20,10 +21,9 @@ data class PatientEntity(
     @ColumnInfo(name = "patient_phone") var patient_phone: String?,
     @ColumnInfo(name = "patient_email") var patient_email: String?,
     @ColumnInfo(name = "patient_address") var patient_address: String?,
-    @Embedded var patient_medicalrecord: PatientMedicalRecord?
+    @Embedded var patient_medicalrecord: PatientMedicalRecord?,
 ) {
-    constructor() : this(
-        NEW_PATIENT_ID,
+    constructor() : this(NEW_PATIENT_ID,
         "John",
         "zz9876543210",
         "2000-01-01",
@@ -32,15 +32,17 @@ data class PatientEntity(
         "john@gmail.com",
         "12345 Yonge Street, Toronto, ON",
         null
-       )
+    )
 
-    constructor(name: String,
-                OHIP: String,
-                DOB: String,
-                gender: String,
-                phone: String,
-                email: String,
-                address: String) : this(NEW_PATIENT_ID, name, OHIP, DOB, gender, phone, email, address, null)
+    constructor(
+        name: String,
+        OHIP: String,
+        DOB: String,
+        gender: String,
+        phone: String,
+        email: String,
+        address: String,
+    ) : this(NEW_PATIENT_ID, name, OHIP, DOB, gender, phone, email, address, null)
 }
 /*{
   *//* constructor() : this(
@@ -92,7 +94,6 @@ data class PatientMedicalRecord(
     var orthotics: Boolean?,
     //val medical_reports: MedicalReport?
 )
-
 
 
 //https://developer.android.com/training/data-storage/room/relationships#nested-objects
