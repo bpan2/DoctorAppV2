@@ -55,7 +55,16 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        //display delete icon on the menu bar if the user selected an item by checking it
+        val menuId =
+            if(this::adapter.isInitialized && adapter.selectedPatients.isNotEmpty()){
+                R.menu.menu_main_selected
+            }else{
+                R.menu.menu_main
+            }
+
+
+        inflater.inflate(menuId, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -77,6 +86,10 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
         Log.i(TAG, "onItemClick: received patient id $patientId")
         val action = MainFragmentDirections.actionEditPatient(patientId)
         findNavController().navigate(action)
+    }
+
+    override fun onItemSelectionChanged() {
+        requireActivity().invalidateOptionsMenu()
     }
 
 }

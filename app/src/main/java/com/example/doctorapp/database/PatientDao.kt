@@ -1,5 +1,6 @@
 package com.example.doctorapp.database
 
+import android.text.TextUtils.replace
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.doctorapp.models.PatientEntity
@@ -12,7 +13,7 @@ interface PatientDao {
     @Update
     fun updatePatient(patient: PatientEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(patients: List<PatientEntity>)
 
     @Query("SELECT * FROM patients ORDER BY id ASC")
