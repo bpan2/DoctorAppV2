@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.doctorapp.R
@@ -35,14 +36,16 @@ class EditorFragment : Fragment() {
         }
         setHasOptionsMenu(true)
 
+        viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
+
         binding = FragmentEditorBinding.inflate(inflater, container, false)
-        //binding.nameOutlinedTextField.editText?.setText(args.patientName)
-        binding.OHIPIdOutlinedTextField.editText?.setText(args.patientId.toString())
-        //binding.dobOutlinedTextField.editText?.setText(args.patientDOB)
-        //binding.genderOutlinedTextField.editText?.setText(args.patientGender)
-        //binding.phoneOutlinedTextField.editText?.setText(args.patientPhone)
-        //binding.addressOutlinedTextField.editText?.setText(args.patientAddress)
-        //binding.emailOutlinedTextField.editText?.setText(args.patientEmail)
+        binding.nameOutlinedTextField.editText?.setText("")
+        binding.OHIPIdOutlinedTextField.editText?.setText("")
+        binding.dobOutlinedTextField.editText?.setText("")
+        binding.genderOutlinedTextField.editText?.setText("")
+        binding.phoneOutlinedTextField.editText?.setText("")
+        binding.addressOutlinedTextField.editText?.setText("")
+        binding.emailOutlinedTextField.editText?.setText("")
 
         //enalbe the device's back-button or back gesture to navigate from Editor screen back to Home Screen
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -53,6 +56,19 @@ class EditorFragment : Fragment() {
                 }
             }
         )
+
+        viewModel.currentPatient.observe(viewLifecycleOwner, Observer {
+            binding.nameOutlinedTextField.editText?.setText(it?.patient_name ?: "")
+            binding.OHIPIdOutlinedTextField.editText?.setText(it?.patient_OHIP ?: "")
+            binding.dobOutlinedTextField.editText?.setText(it?.patient_DOB ?: "")
+            binding.genderOutlinedTextField.editText?.setText(it?.patient_gender ?:"")
+            binding.phoneOutlinedTextField.editText?.setText(it?.patient_phone ?:"")
+            binding.addressOutlinedTextField.editText?.setText(it?.patient_address ?:"")
+            binding.emailOutlinedTextField.editText?.setText(it?.patient_email ?:"")
+        })
+
+        viewModel.getPatientById(args.patientId)
+
         return binding.root
     }
 
@@ -67,11 +83,4 @@ class EditorFragment : Fragment() {
         findNavController().navigateUp()
         return true
     }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
-    }
-
 }

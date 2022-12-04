@@ -2,6 +2,8 @@ package com.example.doctorapp.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -71,10 +73,19 @@ class MainFragment : Fragment(), PatientsListAdapter.ListItemListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sample_data -> addSampleData()
-            //R.id.action_delete -> deleteSelectedNotes()
+            R.id.action_sample_delete -> deleteSelectedPatients()
             //R.id.action_delete_all -> deleteAllNotes()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteSelectedPatients(): Boolean {
+        viewModel.deletePatients(adapter.selectedPatients)
+        Handler(Looper.getMainLooper()).postDelayed({
+            adapter.selectedPatients.clear()
+            requireActivity().invalidateOptionsMenu()
+        }, 100)
+        return true
     }
 
     private fun addSampleData(): Boolean {

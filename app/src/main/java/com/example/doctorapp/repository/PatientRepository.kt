@@ -35,4 +35,5 @@ class PatientRepository(application: Application) {
     suspend fun insertAll(patients: List<PatientEntity>) = db?.patientDao()?.insertAll(patients)
     suspend fun getAllPatients(): LiveData<List<PatientEntity>>? = db?.patientDao()?.getAllPatients()
     suspend fun deleteAllPatients() = db?.patientDao()?.deleteAllPatients()
+    suspend fun deletePatients(selectedPatients: List<PatientEntity>) =db?.patientDao()?.deletePatients(selectedPatients)
 }

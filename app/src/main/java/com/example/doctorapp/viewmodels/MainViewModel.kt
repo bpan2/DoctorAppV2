@@ -61,5 +61,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun deletePatients(selectedPatients: List<PatientEntity>) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                repository.deletePatients(selectedPatients)
+            }
+        }
+    }
+
 
 }
